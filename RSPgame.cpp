@@ -7,15 +7,16 @@
 using namespace std;
 
 int win = 0, draw = 0, lose = 0;
+string name0, name1, name2, name3, name4, name;
+
 void winorlose(int u, int c);
 void userresult(int ur);
 void comresult(int cr);
+string namelist(int game);
 
 int main()
 {
-	int times = 1, game = 1, sum = 0, j=1;
-	
-	string name;
+	int times = 1, game = 0, score[5]={0};
 
 	cout << "\n      ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓" << endl;
 	cout << "      ┃       승:3점    무:1점    패:0점      ┃" << endl;
@@ -45,14 +46,19 @@ int main()
 
 		if (times == 6) { //5판째에 실행
 			cout << "\n======================================================" << endl << endl;
-			cout << "이름을 입력하세요: "; cin >> name;
+			score[game] = win * 3 + draw;
+			cout << "이름을 입력하세요: ";
+			switch (game) {
+			case 0: cin >> name0; break;
+			case 1: cin >> name1; break;
+			case 2: cin >> name2; break;
+			case 3: cin >> name3; break;
+			case 4: cin >> name4; break;
+			}
 			cout << endl << endl;
 			cout << "\n\n                  < 최종결과 >" << endl << endl;
 			cout << "                  " << win << "승 " << draw << "무 " << lose << "패 " << endl << endl;
-			cout << "      " << name << "님의 점수는 " << win * 3 + draw << "점 입니다." << endl << endl;
-
-			cout << "\n1.한번 더 하기\n2.중단하기\n\n번호를 입력하세요 : ";
-			cin >> j;
+			cout << "      " << namelist(game) << "님의 점수는 " << score[game] << "점 입니다." << endl << endl;
 
 			//몇번째 게임인지 기록
 			game++;
@@ -61,8 +67,12 @@ int main()
 			times = 1, win = 0, draw = 0, lose = 0;
 		}
 
-		if (j == 2) break;
+		if (game == 5) break;
 	}
+	cout << "\n\n======================================================" << endl<<endl;
+	cout << "    <전체점수> " << endl << endl;
+	for (int j=0; j < 5; j++) cout << j+1<<". "<<namelist(j) << "        " << score[j] << endl;
+	cout << "\n\n======================================================" << endl << endl;
 	return 0;
 }
 
@@ -91,4 +101,15 @@ void comresult(int cr) { // 컴퓨터선택 출력
 	case 2: cout << "컴퓨터는 바위를 냈습니다" << endl; break;
 	case 3: cout << "컴퓨터는 보를 냈습니다" << endl; break;
 	}
+}
+
+string namelist(int game) {
+	switch (game) {
+	case 0: name = name0; break;
+	case 1: name = name1; break;
+	case 2: name = name2; break;
+	case 3: name = name3; break;
+	case 4: name = name4; break;
+	}
+	return name;
 }
